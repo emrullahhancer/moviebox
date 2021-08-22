@@ -8,12 +8,11 @@
 import UIKit
 
 @IBDesignable final class HomeHeaderView: UIView {
-    
+    //MARK: - IBOutlets
     @IBOutlet weak var collectionView: UICollectionView!
     @IBOutlet weak var pageControl: UIPageControl!
-    
+    //MARK: - Variables
     weak var delegate: SelectMovieDelegate?
-    
     var viewModel: HomeViewModel? {
         didSet {
             collectionView.reloadData()
@@ -35,10 +34,9 @@ import UIKit
         let view = loadNib()
         view.frame = self.bounds
         addSubview(view)
-        
+
         let width = UIScreen.main.bounds.width
         let height = width * 0.68266666666
-        
         var flowLayout: UICollectionViewFlowLayout {
             let _flowLayout = UICollectionViewFlowLayout()
             _flowLayout.itemSize = CGSize(width: width, height: height)
@@ -58,12 +56,9 @@ import UIKit
     
     func scrollViewDidEndDecelerating(_ scrollView: UIScrollView) {
         var visibleRect = CGRect()
-
         visibleRect.origin = collectionView.contentOffset
         visibleRect.size = collectionView.bounds.size
-
         let visiblePoint = CGPoint(x: visibleRect.midX, y: visibleRect.midY)
-
         guard let indexPath = collectionView.indexPathForItem(at: visiblePoint) else { return }
         pageControl.currentPage = indexPath.row
     }

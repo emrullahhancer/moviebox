@@ -7,10 +7,8 @@
 
 import Foundation
 
-class DetailViewModel {
-    
+final class DetailViewModel {
     var apiManager = APIManager.shared
-    
     var reloadDataClosure: (() -> Void)?
     
     var state: State? {

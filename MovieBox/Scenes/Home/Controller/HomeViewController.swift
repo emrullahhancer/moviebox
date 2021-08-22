@@ -11,12 +11,12 @@ protocol SelectMovieDelegate: AnyObject {
     func selectMovie(item: MoviesResults?)
 }
 
-class HomeViewController: UIViewController, UIGestureRecognizerDelegate {
+final class HomeViewController: UIViewController, UIGestureRecognizerDelegate {
+    // MARK: - IBOutlets
     @IBOutlet weak var tableView: UITableView!
-    
+    // MARK: - Variables
     var refresher: UIRefreshControl?
     var headerView: HomeHeaderView?
-   
     lazy var viewModel: HomeViewModel = {
         let viewModel = HomeViewModel()
         return viewModel
@@ -38,11 +38,7 @@ class HomeViewController: UIViewController, UIGestureRecognizerDelegate {
         return false
     }
     
-    override func viewDidAppear(_ animated: Bool) {
-        super.viewDidAppear(animated)
-        
-    }
-    
+    // MARK: - initView
     func initView() {
         tableView.delegate = self
         tableView.dataSource = self
@@ -59,6 +55,7 @@ class HomeViewController: UIViewController, UIGestureRecognizerDelegate {
         tableView.tableFooterView?.frame = .zero
     }
     
+    // MARK: - initViewModel
     func initViewModel() {
         viewModel.reloadDataClosure = { [weak self] in
             guard let self = self else { return }
@@ -74,6 +71,7 @@ class HomeViewController: UIViewController, UIGestureRecognizerDelegate {
         viewModel.getUpcoming()
     }
     
+    // MARK: - initRefresh
     func initRefresh() {
         refresher = UIRefreshControl()
         guard let refresher = refresher else { return }

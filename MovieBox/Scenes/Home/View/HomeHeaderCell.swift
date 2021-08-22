@@ -8,23 +8,20 @@
 import UIKit
 
 final class HomeHeaderCell: UICollectionViewCell {
-
+    //MARK: - IBOutlets
     @IBOutlet weak var mainImage: UIImageView!
     @IBOutlet weak var graidentView: UIView!
     @IBOutlet weak var titleLabel: UILabel!
     @IBOutlet weak var descriptionLabel: UILabel!
-    
+    //MARK: - Variables
     let dateFormatter = DateFormatter()
     let dateFormatterTitle = DateFormatter()
     
     override func awakeFromNib() {
         super.awakeFromNib()
-        
         dateFormatter.dateFormat = "yyyy-MM-dd"
         dateFormatterTitle.dateFormat = "yyyy"
-        
         graidentView.alpha = 0.4
-        
     }
     
     override func layoutSubviews() {
@@ -43,14 +40,11 @@ final class HomeHeaderCell: UICollectionViewCell {
         didSet {
             mainImage.sd_setImage(with: URL(string: APIManager.shared.imageUrl + (movie?.bannerImage ?? "")))
             descriptionLabel.text = movie?.overview
-            
             var dateOfTitle: String?
             if let date = dateFormatter.date(from: movie?.date ?? "") {
                 dateOfTitle = dateFormatterTitle.string(from: date)
             }
-
             titleLabel.text = "\(movie?.title ?? "") (\(dateOfTitle ?? ""))"
         }
     }
-
 }

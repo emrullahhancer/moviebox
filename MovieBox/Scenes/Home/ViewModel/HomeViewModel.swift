@@ -7,12 +7,9 @@
 
 import Foundation
 
-class HomeViewModel {
-    
+final class HomeViewModel {
     var apiManager = APIManager.shared
-    
     var page = 1
-    
     var reloadDataClosure: (() -> Void)?
     
     var state: State? {
@@ -36,7 +33,6 @@ class HomeViewModel {
             self.reloadDataClosure?()
         }
     }
-    
     
     func getNowPlaying(showLoading: Bool = true) {
         if showLoading {

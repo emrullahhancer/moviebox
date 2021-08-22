@@ -14,7 +14,10 @@ class APIManager {
     let key = "1aed6ff3dd63681df5342bf160a5d193"
     let imageUrl = "https://image.tmdb.org/t/p/w500/"
     
-    func getMovies(path: String, page: Int = 1, callbackSuccess: @escaping(Movies) -> Void, callbackFailure: @escaping(APIError) -> Void) {
+    typealias callbackSuccess = (Movies) -> Void
+    typealias callbackFailure = (APIError) -> Void
+    
+    func getMovies(path: String, page: Int = 1, callbackSuccess: @escaping callbackSuccess, callbackFailure: @escaping callbackFailure) {
         guard var components = URLComponents(string: "\(baseUrl)\(path)") else { callbackFailure(.urlError)
             return
         }
@@ -44,7 +47,9 @@ class APIManager {
         task.resume()
     }
     
-    func getMovie(id: String, callbackSuccess: @escaping(MoviesResults) -> Void, callbackFailure: @escaping(APIError) -> Void) {
+    typealias callbackSuccessMovie = (MoviesResults) -> Void
+    
+    func getMovie(id: String, callbackSuccess: @escaping callbackSuccessMovie, callbackFailure: @escaping callbackFailure) {
         guard var components = URLComponents(string: "\(baseUrl)\(id)") else { callbackFailure(.urlError)
             return
         }
